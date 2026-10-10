@@ -279,3 +279,8 @@ dialog{overscroll-behavior:contain}
  .demo-stage{min-height:390px;padding:20px 12px}
  .demo-screen h4{font-size:20px}
 }
+
+.contact-email-row{display:flex;justify-content:center;margin-top:8px}
+.contact-email{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:4px;font-size:15px;line-height:1.6;color:#b4c4df;overflow-wrap:anywhere}
+.contact-email>span{font-size:12px;color:#a8b8d4}
+.contact-email:hover{color:#a4e7ff}
