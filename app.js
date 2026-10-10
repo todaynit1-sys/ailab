@@ -22,15 +22,15 @@ const services={
     "template": "[웹사이트 제작·협업 문의]\n기관 / 브랜드 / 활동명: \n소개할 내용과 이용 대상: \n필요한 페이지 / 기능 (문의·지도·갤러리 등): \n참고 사이트: \n보유 자료 (로고·사진·원고): \n도메인 / 공개 방식: \n희망 일정: "
   },
   "video": {
-    "title": "AI 영상·콘텐츠 협업 문의",
+    "title": "AI 영상·교육 콘텐츠 협업 문의",
     "label": "AI CONTENT",
-    "description": "AI를 활용한 소개 영상과 세로형 콘텐츠를 제작합니다. 전달할 메시지부터 시나리오, 화면·음성 연출, 자막과 편집까지 사용 목적에 맞춰 구성합니다.",
+    "description": "소개 영상·숏폼과 업무 원리·절차를 설명하는 교육 콘텐츠를 만듭니다. 시나리오와 AI 이미지·음성, 단계별 애니메이션, 장면을 직접 선택하는 인터랙티브 페이지를 사용 목적에 맞춰 구성합니다.",
     "preparation": [
       "기관·브랜드 소개, 홍보 영상, 세로형 숏폼",
       "시나리오·대사와 AI 이미지·음성 연출",
-      "자막·배경음·썸네일 및 채널에 맞춘 편집"
+      "교육용 애니메이션·장면 선택·자막·음성 해설과 모바일 화면"
     ],
-    "template": "[AI 영상·콘텐츠 협업 문의]\n전달할 내용 / 대상: \n사용할 채널: \n희망 길이 / 연출 방향: \n참고 영상: \n보유 자료 / 희망 일정: "
+    "template": "[AI 영상·교육 콘텐츠 협업 문의]\n형태 (영상 / 교육 애니메이션 / 인터랙티브 페이지): \n전달할 내용 / 대상: \n사용할 채널: \n희망 길이 / 연출 방향: \n참고 영상: \n보유 자료 / 희망 일정: "
   },
   "career": {
     "title": "바이브코딩 프로젝트 문의",
@@ -85,10 +85,10 @@ const motionLabel=document.querySelector('.motion-label');
 const scenes=[...document.querySelectorAll('.viz-scene')];
 let effectsPaused=false;
 let motionEnabled=false;
-const revealTargets=[...document.querySelectorAll('.education-panel,.curriculum article,.learning-flow li,.section-heading,.project,.book,.contact')];
+const revealTargets=[...document.querySelectorAll('.education-panel,.curriculum article,.learning-flow li,.section-heading,.project,.case-study,.book,.contact')];
 // Short sibling delays establish order; these are visual choices, not numeric accessibility gates.
 document.querySelectorAll('.curriculum,.learning-flow,.book-grid').forEach(group=>{
-  [...group.children].forEach((item,index)=>item.style.setProperty('--reveal-delay',Math.min(index,2)*50+'ms'));
+  [...group.children].forEach((item,index)=>item.style.setProperty('--reveal-delay',(group.classList.contains('book-grid')?index%4:Math.min(index,2))*50+'ms'));
 });
 revealTargets.forEach(element=>element.classList.add('reveal-item'));
 const revealObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{

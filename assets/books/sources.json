@@ -1,0 +1,70 @@
+{
+  "authorUrl": "https://www.yes24.com/product/author/504618",
+  "verifiedOn": "2026-10-10",
+  "books": [
+    {
+      "title": "AI 한 권으로 끝내기",
+      "id": "165140563",
+      "file": "ai-complete.jpg",
+      "category": "AI 입문 · 종합 활용",
+      "url": "https://www.yes24.com/product/goods/165140563",
+      "imageSource": "https://image.yes24.com/goods/165140563/L"
+    },
+    {
+      "title": "AI 실무 마스터",
+      "id": "161876660",
+      "file": "ai-master.jpg",
+      "category": "업무 · 실전 사례",
+      "url": "https://www.yes24.com/product/goods/161876660",
+      "imageSource": "https://image.yes24.com/goods/161876660/L"
+    },
+    {
+      "title": "AI 실무 가이드 직장에서 바로 활용하는 프롬프트",
+      "id": "160463628",
+      "file": "ai-guide.jpg",
+      "category": "업무 · 프롬프트",
+      "url": "https://www.yes24.com/product/goods/160463628",
+      "imageSource": "https://image.yes24.com/goods/160463628/L"
+    },
+    {
+      "title": "실전 공무원 AI 매뉴얼 핵심 기법 10가지",
+      "id": "152552709",
+      "file": "ai-public.jpg",
+      "category": "공공행정 · 실무",
+      "url": "https://www.yes24.com/product/goods/152552709",
+      "imageSource": "https://image.yes24.com/goods/152552709/L"
+    },
+    {
+      "title": "AI 첫걸음 교과서",
+      "id": "152560676",
+      "file": "ai-first.jpg",
+      "category": "AI 기초 · 입문",
+      "url": "https://www.yes24.com/product/goods/152560676",
+      "imageSource": "https://image.yes24.com/goods/152560676/L"
+    },
+    {
+      "title": "5060을 위한 AI 첫걸음",
+      "id": "154230819",
+      "file": "ai-5060.jpg",
+      "category": "생활 · 디지털 활용",
+      "url": "https://www.yes24.com/product/goods/154230819",
+      "imageSource": "https://image.yes24.com/goods/154230819/L"
+    },
+    {
+      "title": "AI로 인생이 편해지는 법",
+      "id": "189439475",
+      "file": "ai-life.jpg",
+      "category": "일상 · 활용",
+      "url": "https://www.yes24.com/product/goods/189439475",
+      "imageSource": "https://image.yes24.com/goods/189439475/L"
+    },
+    {
+      "title": "우리 아이 AI 첫 시작",
+      "id": "191543377",
+      "file": "ai-kids.jpg",
+      "category": "어린이 · AI 교육",
+      "url": "https://www.yes24.com/product/goods/191543377",
+      "imageSource": "https://image.yes24.com/goods/191543377/L"
+    }
+  ]
+}
