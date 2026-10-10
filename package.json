@@ -1,0 +1,6 @@
+{
+  "name": "ai-strategy-lab",
+  "private": true,
+  "version": "0.1.0",
+  "scripts": { "start": "node server.cjs", "check": "node --check app.js" }
+}

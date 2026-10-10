@@ -1,0 +1,6 @@
+node_modules/
+.omd/
+AI전략연구소_로고/
+*.zip
+assets/homepage-*.png
+brand-notes.md
