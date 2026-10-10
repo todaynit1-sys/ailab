@@ -56,13 +56,26 @@
       <path d="M320 156L400 202V294L320 340L240 294V202Z" stroke-opacity=".2"/>
       <path d="M320 174L384 211V285L320 322L256 285V211Z" stroke-opacity=".35"/>
     </g>
-    <g>
+
+    <g class="core-orbit" aria-hidden="true" fill="none" stroke="#5b9bff" stroke-opacity=".45" stroke-width="1">
+      <circle cx="320" cy="248" r="82" stroke-dasharray="3 14"/>
+      <circle cx="320" cy="166" r="3" fill="#1fb6f6" stroke="none"/>
+      <circle cx="320" cy="330" r="3" fill="#5b9bff" stroke="none"/>
+    </g>
+    <g class="ai-core">
       <path d="M320 193L368 221L320 249L272 221Z" fill="#5b9bff"/>
       <path d="M272 221L320 249V305L272 277Z" fill="#2f5be0"/>
       <path d="M320 249L368 221V277L320 305Z" fill="url(#workflow-core)"/>
       <path d="M296 220L320 206L344 220L320 234Z" fill="#0f1b4c" fill-opacity=".85"/>
       <path d="M320 249V305" stroke="#1fb6f6" stroke-width="2"/>
       <text x="320" y="265" text-anchor="middle" fill="#fff" font-family="Arial, sans-serif" font-size="25" font-weight="700">AI</text>
+    </g>
+
+    <g aria-hidden="true" fill="#9be2ff">
+      <circle class="signal-packet packet-input" r="3"/>
+      <circle class="signal-packet packet-question" r="3"/>
+      <circle class="signal-packet packet-document" r="3"/>
+      <circle class="signal-packet packet-app" r="3"/>
     </g>
     <g class="signal-node" fill="#1fb6f6"><circle cx="250" cy="248" r="4"/><circle cx="412" cy="224" r="4"/><circle cx="412" cy="322" r="4"/></g>
     <text x="320" y="369" text-anchor="middle" fill="#fff" font-size="20" font-weight="550">맥락과 목적에 맞게</text>

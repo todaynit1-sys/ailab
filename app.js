@@ -85,13 +85,18 @@ const motionLabel=document.querySelector('.motion-label');
 const scenes=[...document.querySelectorAll('.viz-scene')];
 let effectsPaused=false;
 let motionEnabled=false;
-const revealTargets=[...document.querySelectorAll('.education-panel,.section-heading,.project,.book,.contact')];
+const revealTargets=[...document.querySelectorAll('.education-panel,.curriculum article,.learning-flow li,.section-heading,.project,.book,.contact')];
+// Short sibling delays establish order; these are visual choices, not numeric accessibility gates.
+document.querySelectorAll('.curriculum,.learning-flow,.book-grid').forEach(group=>{
+  [...group.children].forEach((item,index)=>item.style.setProperty('--reveal-delay',Math.min(index,2)*50+'ms'));
+});
 revealTargets.forEach(element=>element.classList.add('reveal-item'));
 const revealObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
   entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.remove('reveal-waiting');revealObserver.unobserve(entry.target);}});
 },{threshold:.08}):null;
 const sceneObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{entry.target.dataset.visible=String(entry.isIntersecting);});
+  entries.forEach(entry=>{entry.target.dataset.visible=String(entry.isIntersecting);
+    const figure=entry.target.closest('figure');if(figure)figure.dataset.inView=String(entry.isIntersecting);});
 },{threshold:.05}):null;
 scenes.forEach(scene=>{scene.dataset.visible=String(!sceneObserver);if(sceneObserver)sceneObserver.observe(scene);});
 function applyMotion(){
@@ -101,11 +106,19 @@ function applyMotion(){
   motionToggle.setAttribute('aria-pressed',String(effectsPaused));
   motionLabel.textContent=effectsPaused?'효과 다시 켜기':'효과 일시 정지';
   if(!motionEnabled){
+    document.querySelector('.hero-copy').classList.remove('hero-enter');
     revealTargets.forEach(element=>element.classList.remove('reveal-waiting'));
     scenes.forEach(scene=>{scene.style.removeProperty('--tilt-x');scene.style.removeProperty('--tilt-y');});
   }
 }
 applyMotion();
+const heroCopy=document.querySelector('.hero-copy');
+if(motionEnabled){
+  const introChildren=[...heroCopy.children];
+  introChildren.forEach((element,index)=>element.style.setProperty('--intro-delay',Math.min(index,5)*50+'ms'));
+  heroCopy.classList.add('hero-enter');
+  heroCopy.addEventListener('animationend',event=>{if(event.target===introChildren.at(-1))heroCopy.classList.remove('hero-enter');});
+}
 if(motionEnabled&&revealObserver){
   revealTargets.forEach(element=>{
     if(element.getBoundingClientRect().top>window.innerHeight){element.classList.add('reveal-waiting');revealObserver.observe(element);}

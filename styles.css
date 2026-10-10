@@ -68,3 +68,54 @@ figure{margin:0}
 @media(prefers-reduced-motion:reduce){.reveal-item,.viz-scene{opacity:1!important;transform:none!important;transition:none!important}.signal-line{animation:none!important}.reading-progress{display:none}}
 
 .career-mobile{display:none}@media(max-width:680px){.career-visual .viz-scene svg{display:none}.career-mobile{display:block;width:100%;height:auto;border-radius:20px}}
+
+/* Stronger motion remains decorative, stoppable and scoped to visible diagrams. */
+.viz-scene{transition-duration:200ms}
+.reveal-item{transition-duration:300ms;transition-delay:var(--reveal-delay,0ms)}
+.hero-copy.hero-enter>*{animation:hero-enter 350ms cubic-bezier(0,0,.2,1) both;animation-delay:var(--intro-delay,0ms)}
+[data-motion=off] .hero-copy.hero-enter>*{animation:none}
+@keyframes hero-enter{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.ai-core{transform-box:view-box;transform-origin:320px 248px}
+.core-orbit{transform-box:view-box;transform-origin:320px 248px}
+.signal-packet{opacity:0}
+[data-motion=on] .viz-scene[data-visible=true] .ai-core{animation:core-float 5s ease-in-out infinite}
+[data-motion=on] .viz-scene[data-visible=true] .core-orbit{animation:orbit-turn 24s linear infinite}
+[data-motion=on] .viz-scene[data-visible=true] .signal-node{animation:node-breathe 4s ease-in-out infinite}
+[data-motion=on] .viz-scene[data-visible=true] .signal-line{animation-duration:6s}
+[data-motion=on] .viz-scene[data-visible=true] .packet-input{animation:packet-input 4s linear infinite}
+[data-motion=on] .viz-scene[data-visible=true] .packet-question{animation:packet-question 4s 1s linear infinite}
+[data-motion=on] .viz-scene[data-visible=true] .packet-document{animation:packet-document 4s 1.5s linear infinite}
+[data-motion=on] .viz-scene[data-visible=true] .packet-app{animation:packet-app 4s 2.5s linear infinite}
+@keyframes core-float{0%,100%{transform:translateY(3px)}50%{transform:translateY(-5px)}}
+@keyframes orbit-turn{to{transform:rotate(360deg)}}
+@keyframes node-breathe{0%,100%{opacity:.45}50%{opacity:1}}
+/* Packets explain the existing input/output paths without altering any labels. */
+@keyframes packet-input{0%,10%{opacity:0;transform:translate(200px,185px)}15%{opacity:1;transform:translate(200px,185px)}35%{opacity:1;transform:translate(250px,185px)}65%{opacity:1;transform:translate(250px,248px)}80%{opacity:0;transform:translate(273px,248px)}100%{opacity:0;transform:translate(273px,248px)}}
+@keyframes packet-question{0%,10%{opacity:0;transform:translate(200px,315px)}15%{opacity:1;transform:translate(200px,315px)}35%{opacity:1;transform:translate(250px,315px)}65%{opacity:1;transform:translate(250px,248px)}80%,100%{opacity:0;transform:translate(273px,248px)}}
+@keyframes packet-document{0%,10%{opacity:0;transform:translate(374px,248px)}15%{opacity:1;transform:translate(374px,248px)}30%{opacity:1;transform:translate(412px,248px)}70%{opacity:1;transform:translate(412px,150px)}85%,100%{opacity:0;transform:translate(440px,150px)}}
+@keyframes packet-app{0%,10%{opacity:0;transform:translate(374px,248px)}15%{opacity:1;transform:translate(374px,248px)}30%{opacity:1;transform:translate(412px,248px)}70%{opacity:1;transform:translate(412px,396px)}85%,100%{opacity:0;transform:translate(440px,396px)}}
+.hero-visual:before{transform:translateY(0);opacity:.65}
+[data-motion=on] .hero-visual[data-in-view=true]:before{animation:ambient-drift 8s ease-in-out infinite}
+@keyframes ambient-drift{0%,100%{opacity:.5;transform:translate(-8px,8px) scale(.95)}50%{opacity:1;transform:translate(8px,-8px) scale(1.05)}}
+[data-motion=on] dialog[open]{animation:dialog-enter 300ms cubic-bezier(0,0,.2,1) both}
+[data-motion=on] dialog[open]::backdrop{animation:backdrop-enter 300ms ease-out both}
+@keyframes dialog-enter{from{opacity:0;transform:translateY(12px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes backdrop-enter{from{opacity:0}to{opacity:1}}
+.project{transition:opacity 300ms ease-out,transform 200ms ease-out,box-shadow 200ms ease-out;transition-delay:var(--reveal-delay,0ms)}
+[data-motion=off] .reading-progress{display:none}
+@media(hover:hover) and (pointer:fine){
+[data-motion=on] .project:not(.reveal-waiting):hover{transform:translateY(-4px);box-shadow:0 3px 6px rgb(15 27 76 / .03),0 12px 28px rgb(15 27 76 / .08);transition-delay:0ms}
+[data-motion=on] .contact-link:hover>span{transform:translate(3px,-3px)}
+.contact-link>span{transition:transform 150ms ease-out}
+}
+@media(max-width:680px){.hero-copy.hero-enter>*{animation-duration:300ms}}
+@media(prefers-reduced-motion:reduce){
+.hero-copy.hero-enter>*{opacity:1!important;transform:none!important;animation:none!important}
+.ai-core,.core-orbit{transform:none!important}
+.signal-packet{display:none!important}
+.hero-visual:before{animation:none!important;transform:none!important}
+dialog[open]{opacity:1!important;transform:none!important;animation:none!important}
+}
+
+[data-motion=off] .book-cover img,[data-motion=off] .text-link>span,[data-motion=off] .contact-link>span{transform:none!important;transition:none!important}
+@media(max-width:680px){.career-visual svg .signal-line,.career-visual svg .signal-node{animation:none!important}}
