@@ -148,3 +148,134 @@ textarea{font-size:16px;line-height:1.8}
   .portfolio-file strong{font-size:17px}
   .mini-board{padding:10px;gap:6px}
 }
+
+/* Compact institute overview: concise copy, generated infographics, closer sections. */
+.shell{width:min(1200px,calc(100% - 64px))}
+.section{margin-top:64px}
+.hero{padding-top:32px}
+.hero-layout{grid-template-columns:1.15fr .85fr;min-height:0;gap:32px}
+.hero h1{font-size:clamp(44px,4.5vw,64px)}
+.hero .eyebrow{margin-bottom:12px}
+.hero-description{margin-top:16px;line-height:1.65}
+.directors{margin-top:16px}
+.hero-links{margin-top:20px}
+.hero-visual{width:min(440px,100%);margin-inline:auto}
+.infographic-frame{position:relative;aspect-ratio:1;border-radius:16px;overflow:hidden;background:#0b1430}
+.infographic-frame img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:contain}
+.infographic-visual figcaption{font-size:13px;line-height:1.6;color:#b4c4df;margin-top:10px;text-align:center;letter-spacing:0}
+.hero-bottom{margin-top:16px;padding:16px 0;gap:16px}
+.education-panel{padding:32px;gap:32px;grid-template-columns:1.1fr .9fr;align-items:center}
+.education h2,.section-heading h2{font-size:36px}
+.education-intro>p:not(.eyebrow){margin-top:12px}
+.education-intro .education-proof{font-size:14px!important}
+.curriculum{margin-top:16px}
+.curriculum article{padding:12px 0;gap:16px}
+.curriculum article:first-child{padding-top:0}
+.curriculum article:last-child{border-bottom:0}
+.curriculum h3{font-size:20px;margin-bottom:4px}
+.curriculum p{font-size:15px;line-height:1.65}
+.education-art{width:min(400px,100%);margin-inline:auto}
+.section-heading{margin-bottom:24px;gap:16px}
+.section-heading .eyebrow{margin-bottom:8px}
+.project-grid{gap:20px}
+.project{padding:28px}
+.project-featured{grid-template-columns:1.15fr .85fr;gap:32px}
+.project h3{font-size:30px;margin-bottom:12px}
+.project p:not(.project-label){line-height:1.7}
+.project .project-label{margin-bottom:10px}
+.scope-list{margin-top:16px}
+.scope-list li{line-height:1.7;margin-bottom:8px}
+.project .text-link{margin-top:12px}
+.career-visual{width:min(380px,100%);margin-inline:auto}
+.work-details{margin-top:20px}
+.lab-demo{margin-top:48px;gap:32px;align-items:center}
+.lab-intro .eyebrow{margin-bottom:12px}
+.lab-intro h3{font-size:36px}
+.lab-intro>p:not(.eyebrow){margin-top:12px;line-height:1.7}
+.lab-intro .demo-disclaimer{margin-top:8px}
+.lab-outro{padding-bottom:0;gap:16px}
+.lab-outro p{font-size:14px;line-height:1.65}
+.demo-stage{min-height:360px;padding:24px}
+.publications{margin-top:64px;padding:40px 0}
+.publications .section-heading h2{font-size:36px}
+.book-grid{gap:24px 20px}
+.book-cover{margin-bottom:8px}
+.book h3{font-size:15px;line-height:1.6}
+.contact{padding-bottom:48px}
+.contact .eyebrow{margin-bottom:12px}
+.contact h2{font-size:36px}
+.contact>p:not(.eyebrow){margin-top:12px}
+.contact-link{margin-top:20px}
+.site-footer{padding:24px 0}
+dialog{overscroll-behavior:contain}
+@media(min-width:761px) and (max-width:1024px){
+ .hero h1{font-size:48px}
+ .hero-layout{grid-template-columns:1fr 1fr;gap:24px}
+ .hero-visual{width:100%}
+ .education-panel{gap:24px;padding:28px}
+ .education h2{font-size:30px}
+ .curriculum p{font-size:14px}
+ .project-featured{grid-template-columns:1fr 1fr;gap:24px}
+ .project h3{font-size:28px}
+ .lab-demo{grid-template-columns:1fr 1fr;gap:24px}
+ .lab-intro h3{font-size:30px}
+}
+@media(max-width:760px){
+ .shell{width:calc(100% - 32px)}
+ .section{margin-top:40px}
+ .nav-shell{min-height:96px;padding:6px 0 2px}
+ .brand-home img{width:180px}
+ .hero{padding-top:24px}
+ .hero-layout{grid-template-columns:1fr;gap:20px}
+ .hero h1{font-size:clamp(34px,9.2vw,44px)}
+ .hero .eyebrow{margin-bottom:10px}
+ .hero-description{font-size:15px;margin-top:12px}
+ .hero-links{margin-top:16px;gap:8px 16px}
+ .directors{margin-top:12px}
+ .hero-visual{width:min(360px,100%);margin-top:0}
+ .hero-bottom{margin-top:12px;padding:12px 0;gap:4px}
+ .scope-line{font-size:12px;gap:4px 16px}
+ .education-panel{grid-template-columns:1fr;padding:24px 20px;gap:20px}
+ .education h2,.section-heading h2,.publications .section-heading h2{font-size:28px}
+ .education-intro .eyebrow{margin-bottom:10px}
+ .education-intro>p:not(.eyebrow){font-size:15px}
+ .curriculum article{padding:10px 0}
+ .curriculum p{font-size:14px}
+ .education-art{width:min(340px,100%)}
+ .section-heading{margin-bottom:20px}
+ .project-grid{gap:16px}
+ .project{padding:24px 20px}
+ .project h3{font-size:26px}
+ .project-featured{grid-template-columns:1fr;gap:20px}
+ .project p:not(.project-label){font-size:15px}
+ .scope-list{margin-top:12px}
+ .scope-list li{margin-bottom:6px}
+ .career-visual{width:min(340px,100%)}
+ .infographic-visual figcaption{font-size:12px;margin-top:8px}
+ .work-details{margin-top:16px}
+ .process-list{gap:16px}
+ .lab-demo{margin-top:36px;grid-template-columns:1fr;gap:20px}
+ .lab-intro h3{font-size:28px}
+ .lab-intro>p:not(.eyebrow){font-size:15px;margin-top:10px}
+ .demo-stage{min-height:370px;padding:20px 16px}
+ .demo-screen h4{font-size:21px;margin-bottom:16px}
+ .scene-kicker{margin-bottom:12px}
+ .scene-selector button{min-height:56px}
+ .lab-outro{gap:8px;padding-bottom:0}
+ .publications{margin-top:40px;padding:32px 0}
+ .book-grid{gap:20px 16px}
+ .book h3{font-size:14px}
+ .contact{padding-bottom:32px}
+ .contact h2{font-size:28px}
+ .contact .eyebrow{margin-bottom:8px}
+ .contact-link{margin-top:16px}
+ .site-footer{padding:20px 0}
+}
+@media(max-width:360px){
+ .hero-links{gap:4px}
+ .hero-description{font-size:15px}
+ .project h3{font-size:24px}
+ .education-panel,.project{padding:20px 16px}
+ .demo-stage{min-height:390px;padding:20px 12px}
+ .demo-screen h4{font-size:20px}
+}

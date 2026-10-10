@@ -1,0 +1,35 @@
+{
+  "generator": "OpenAI built-in image generation",
+  "date": "2026-10-10",
+  "use_case": "infographic-diagram",
+  "assets": [
+    {
+      "name": "lab-overview-gpt",
+      "labels": [
+        "AI 교육",
+        "취업용 앱",
+        "홈페이지",
+        "영상·콘텐츠"
+      ],
+      "prompt": "Use case: infographic-diagram\nAsset type: square website infographic for a Korean AI research and education institute.\nPrimary request: create a finished premium editorial infographic introducing FOUR institute activities. Deep midnight navy #0b1430 background, luminous electric blue, ice cyan and restrained violet. Crisp expertly modeled 3D glass / aluminum miniatures, thin clear connecting lines, readable flat Korean typography. A compact balanced 2-by-2 composition filling most of the square; minimal outer margin, no huge blank spaces.\nTop left: lecture and digital knowledge miniature, label exactly \"AI 교육\".\nTop right: smartphone application / portfolio miniature, label exactly \"취업용 앱\".\nBottom left: desktop and mobile website miniature, label exactly \"홈페이지\".\nBottom right: video timeline / film player miniature, label exactly \"영상·콘텐츠\".\nEach label must be large (approximately 64px on a 1024px square), clear white sans-serif Korean. Tiny center connector hub marked exactly \"AI\". All four visual modules equally clear, educational institute mood, refined and confident, no childish characters. Strong diagram hierarchy; more content than decoration. No other words, no logo, no watermarks, no English microtext, no invented statistics, no people, no government buildings. Final image should remain understandable displayed 320px wide on a mobile page. No card-shaped boxes around each module. Solid dark background, no transparency."
+    },
+    {
+      "name": "education-gpt",
+      "labels": [
+        "AI 기본",
+        "AI 활용",
+        "업무 특화"
+      ],
+      "prompt": "Use case: infographic-diagram\nAsset type: square infographic for Korean AI education website.\nCreate a premium compact editorial 3D infographic with THREE horizontal rows stacked vertically. Dark navy #0b1430, electric blue, cyan highlights and subdued violet; precise glass and brushed aluminum miniatures, clean typography. No outer heading. Fill square with the rows; small outer margin. Each row has a refined large miniature on the left and very large Korean label on the right (64px or larger for 1024px square). Thin downward connector between rows communicates increasing depth.\nRow1 miniature: knowledge prism, chat interface and simple tools. Exact label \"AI 기본\".\nRow2 miniature: document, magnifying glass and design canvas. Exact label \"AI 활용\".\nRow3 miniature: linked professional workflow nodes, compact business chart and gear. Exact label \"업무 특화\".\nLabels white, plain clear Korean sans-serif, flat face-on lettering, no bloom over letters. The ONLY text in image is these THREE labels verbatim. Educational and professional, not robotic or childish, no fabricated data, no logos, no humans, no tiny letters. Three visually distinct rows with no enormous gaps and no enclosing cards. Understandable at mobile 320px wide. No transparency."
+    },
+    {
+      "name": "career-gpt",
+      "labels": [
+        "직무 분석",
+        "앱 제작",
+        "포트폴리오"
+      ],
+      "prompt": "Use case: infographic-diagram\nAsset type: square career portfolio app infographic for Korean AI institute website.\nPrimary request: premium editorial 3D diagram for building an employment portfolio app with AI. THREE clear horizontal stages stacked from top to bottom, each with a large high-quality dimensional miniature on left and large face-on Korean typography on right. Near-black navy #0b1430 backdrop, electric blue, cyan and restrained violet, crisp materials and fine connector lines. Compact filling the square, outer margin about 5%, no big blank regions, no outer title.\nStage1: magnifying glass over a job brief, exact label \"직무 분석\".\nStage2: elegant desktop and smartphone app interface, exact label \"앱 제작\".\nStage3: polished project portfolio document and live app window, exact label \"포트폴리오\".\nLink stages downward with a fine cyan arrow. All labels large (at least 64px on a 1024px square), white Korean sans-serif, strong contrast, no tiny text. ONLY these three labels verbatim, no other text, no logos, no claims of job guarantees, no invented numbers, no characters, no government symbols. Refined educational tone. Full diagram readable when reduced to 320px on mobile. Solid dark background, not transparent."
+    }
+  ]
+}
