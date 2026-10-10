@@ -124,7 +124,7 @@ const viewObserver='IntersectionObserver' in window?new IntersectionObserver(ent
   });
   scheduleAnimation();
 },{threshold:0}):null;
-document.querySelectorAll('.hero,.projects,.lab-demo').forEach(section=>{section.dataset.inView='true';if(viewObserver)viewObserver.observe(section);});
+document.querySelectorAll('.hero,.education,.projects,.lab-demo').forEach(section=>{section.dataset.inView='true';if(viewObserver)viewObserver.observe(section);});
 const canvas=document.querySelector('.constellation');
 const context=canvas.getContext('2d');
 let particles=[],canvasWidth=0,canvasHeight=0,animationFrame=0,lastFrame=0,lastPaint=0;

@@ -2,5 +2,5 @@
   "name": "ai-strategy-lab",
   "private": true,
   "version": "0.1.0",
-  "scripts": { "start": "node server.cjs", "check": "node --check app.js" }
+  "scripts": { "start": "node server.cjs", "check": "node --check app.js", "build": "node build-static.cjs", "deploy": "npm run build && npx wrangler@4.149.0 deploy" }
 }

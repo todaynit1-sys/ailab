@@ -1,4 +1,6 @@
 node_modules/
+dist/
+.wrangler/
 .omd/
 AI전략연구소_로고/
 *.zip

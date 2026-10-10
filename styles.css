@@ -284,3 +284,56 @@ dialog{overscroll-behavior:contain}
 .contact-email{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:4px;font-size:15px;line-height:1.6;color:#b4c4df;overflow-wrap:anywhere}
 .contact-email>span{font-size:12px;color:#a8b8d4}
 .contact-email:hover{color:#a4e7ff}
+
+/* Restrained navy/blue palette; original logo and book artwork stay intact. */
+:root{--color-accent:#9bb9e8;--color-paper:#101a30}
+body{background:#0b1430}
+.hero{background:radial-gradient(ellipse at 75% 30%,#20335528,transparent 64%)}
+.hero-aura{opacity:.09}.aura-one{background:#4874b0}.aura-two{background:#547394}
+.constellation{opacity:.28}
+.accent{background:none;-webkit-text-fill-color:currentColor;color:#b1c9ed}
+.eyebrow,.project-label,.small-label{color:#a9c0df}
+.status-dot{background:#a6c5ec;box-shadow:0 0 8px #8eb6e93d}
+.primary-link{background:#355f9e;box-shadow:0 6px 22px #08142a38}
+.primary-link:hover{box-shadow:0 8px 24px #08142a55}
+.text-link{color:#b0c9eb}
+.site-header nav a:hover,.site-header nav a[aria-current]{color:#c8d9f2}
+.site-header .nav-contact{border-color:#879ab940}
+.reading-progress{background:#7c9fce}
+.education-panel{background:#101c34;border-color:#839ab32a}
+.education-panel:before{background:linear-gradient(90deg,transparent,#9ab5d34d,transparent)}
+.education-intro .education-proof{color:#adc7e9!important}
+.program-number{color:#a0b9db}
+.project{background:#111d35;border-color:#839ab32a}
+.project-career{background:#111e36}
+.publications{background:#101b31;border-color:#839ab324}
+.book-cover{background:#0e182d}
+.contact-link{background:#335e9c;box-shadow:none}
+.motion-indicator{background:#a1bcdf}
+.infographic-frame{background:#0b1430;border-color:#879ab920;box-shadow:none}
+.infographic-frame img{filter:saturate(.58) brightness(.93)}
+.activity-art{position:relative;transform-origin:50% 50%}
+.activity-signals{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.signal-flow{fill:none;stroke:#d9e9ff;stroke-width:5;stroke-linecap:round;stroke-dasharray:10 180;opacity:0}
+.signal-core,.signal-halo{fill:none;stroke:#b3cbee;stroke-width:2;opacity:.18;transform-origin:627px 615px}
+.signal-halo{opacity:0}
+[data-motion=on] .activity-art{animation:activity-float 7s ease-in-out infinite;animation-play-state:paused}
+[data-motion=on] .signal-flow{animation:activity-flow 8s linear infinite;animation-play-state:paused}
+[data-motion=on] .signal-career{animation-delay:-2s}
+[data-motion=on] .signal-web{animation-delay:-4s}
+[data-motion=on] .signal-video{animation-delay:-6s}
+[data-motion=on] .signal-halo{animation:activity-halo 4s ease-out infinite;animation-play-state:paused}
+[data-motion=on] .hero[data-in-view=true] .activity-art,
+[data-motion=on] .hero[data-in-view=true] .signal-flow,
+[data-motion=on] .hero[data-in-view=true] .signal-halo{animation-play-state:running}
+[data-motion=on] .education-art img,
+[data-motion=on] .career-visual img{animation:diagram-breathe 8s ease-in-out infinite;animation-play-state:paused}
+[data-motion=on] .education[data-in-view=true] .education-art img,
+[data-motion=on] .projects[data-in-view=true] .career-visual img{animation-play-state:running}
+[data-motion=off] .activity-art{transform:none}
+@keyframes activity-float{0%,100%{transform:translateY(3px)}50%{transform:translateY(-4px)}}
+@keyframes activity-flow{0%,18%{opacity:0;stroke-dashoffset:0}23%,43%{opacity:.85}50%,100%{opacity:0;stroke-dashoffset:-180}}
+@keyframes activity-halo{0%{opacity:.36;transform:scale(.92)}80%,100%{opacity:0;transform:scale(1.18)}}
+@keyframes diagram-breathe{0%,100%{transform:translateY(2px)}50%{transform:translateY(-3px)}}
+@media(max-width:760px){.activity-signals .signal-flow{stroke-width:6}}
+@media(prefers-reduced-motion:reduce){.activity-art{transform:none!important}.signal-flow,.signal-halo{opacity:0!important}}
