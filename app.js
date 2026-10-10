@@ -1,6 +1,6 @@
 const services={
   "lecture": {
-    "title": "AI 교육 프로그램 문의",
+    "title": "실무 중심 AI 강의 문의",
     "label": "AI EDUCATION",
     "description": "AI 기본·AI 활용·업무 특화 교육을 진행합니다. 공공기관과 기업의 교육 대상, 업무 환경, 실습 여건에 맞춰 내용을 구성합니다.",
     "preparation": [
@@ -77,3 +77,73 @@ await navigator.clipboard.writeText(inquiry.value.trim());
 status.textContent=services[dialog.dataset.service].title+' 내용을 복사했습니다. 카카오톡에서 붙여넣어 보내주세요.';
 }catch{inquiry.focus();inquiry.select();status.textContent='자동 복사를 사용할 수 없습니다. 선택된 문의 내용을 직접 복사해주세요.';}
 });
+/* Motion has an explicit pause control and follows the system preference. */
+const motionPreference=window.matchMedia('(prefers-reduced-motion: reduce)');
+const finePointer=window.matchMedia('(hover: hover) and (pointer: fine)');
+const motionToggle=document.querySelector('.motion-toggle');
+const motionLabel=document.querySelector('.motion-label');
+const scenes=[...document.querySelectorAll('.viz-scene')];
+let effectsPaused=false;
+let motionEnabled=false;
+const revealTargets=[...document.querySelectorAll('.education-panel,.section-heading,.project,.book,.contact')];
+revealTargets.forEach(element=>element.classList.add('reveal-item'));
+const revealObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.remove('reveal-waiting');revealObserver.unobserve(entry.target);}});
+},{threshold:.08}):null;
+const sceneObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{entry.target.dataset.visible=String(entry.isIntersecting);});
+},{threshold:.05}):null;
+scenes.forEach(scene=>{scene.dataset.visible=String(!sceneObserver);if(sceneObserver)sceneObserver.observe(scene);});
+function applyMotion(){
+  motionEnabled=!effectsPaused&&!motionPreference.matches;
+  document.documentElement.dataset.motion=motionEnabled?'on':'off';
+  motionToggle.hidden=motionPreference.matches;
+  motionToggle.setAttribute('aria-pressed',String(effectsPaused));
+  motionLabel.textContent=effectsPaused?'효과 다시 켜기':'효과 일시 정지';
+  if(!motionEnabled){
+    revealTargets.forEach(element=>element.classList.remove('reveal-waiting'));
+    scenes.forEach(scene=>{scene.style.removeProperty('--tilt-x');scene.style.removeProperty('--tilt-y');});
+  }
+}
+applyMotion();
+if(motionEnabled&&revealObserver){
+  revealTargets.forEach(element=>{
+    if(element.getBoundingClientRect().top>window.innerHeight){element.classList.add('reveal-waiting');revealObserver.observe(element);}
+  });
+}
+document.addEventListener('focusin',event=>{
+  const target=event.target.closest('.reveal-waiting');
+  if(target){target.classList.remove('reveal-waiting');if(revealObserver)revealObserver.unobserve(target);}
+});
+motionToggle.addEventListener('click',()=>{effectsPaused=!effectsPaused;applyMotion();});
+motionPreference.addEventListener('change',applyMotion);
+scenes.forEach(scene=>{
+  let pendingFrame=0;
+  scene.addEventListener('pointermove',event=>{
+    if(!motionEnabled||!finePointer.matches||event.pointerType==='touch')return;
+    const bounds=scene.getBoundingClientRect();
+    const x=Math.max(-1,Math.min(1,((event.clientX-bounds.left)/bounds.width-.5)*2));
+    const y=Math.max(-1,Math.min(1,((event.clientY-bounds.top)/bounds.height-.5)*2));
+    cancelAnimationFrame(pendingFrame);
+    pendingFrame=requestAnimationFrame(()=>{
+      if(!motionEnabled)return;
+      scene.style.setProperty('--tilt-x',(-y*3).toFixed(2)+'deg');
+      scene.style.setProperty('--tilt-y',(x*3).toFixed(2)+'deg');
+    });
+  },{passive:true});
+  scene.addEventListener('pointerleave',()=>{
+    cancelAnimationFrame(pendingFrame);
+    scene.style.removeProperty('--tilt-x');scene.style.removeProperty('--tilt-y');
+  });
+});
+let progressFrame=0;
+function updateReadingProgress(){
+  const distance=document.documentElement.scrollHeight-window.innerHeight;
+  const progress=distance>0?Math.max(0,Math.min(1,window.scrollY/distance)):0;
+  document.documentElement.style.setProperty('--reading-progress',progress.toFixed(4));
+  progressFrame=0;
+}
+function scheduleProgress(){if(!progressFrame)progressFrame=requestAnimationFrame(updateReadingProgress);}
+window.addEventListener('scroll',scheduleProgress,{passive:true});
+window.addEventListener('resize',scheduleProgress,{passive:true});
+updateReadingProgress();

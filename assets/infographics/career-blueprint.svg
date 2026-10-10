@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="430" viewBox="0 0 640 430" role="img" aria-labelledby="career-title career-desc">
+  <title id="career-title">직무 분석부터 앱과 포트폴리오까지, 취업용 앱 프로젝트 구성 예시</title>
+  <desc id="career-desc">지원 직무를 분석하고 업무에 필요한 앱을 구현한 뒤, 문제와 해결 과정을 포트폴리오로 설명합니다. 예시 앱은 자료 정리, 업무 도구, 결과물 설명으로 구성됩니다.</desc>
+  <defs>
+    <linearGradient id="career-panel" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0f1b4c"/><stop offset="1" stop-color="#0b1430"/></linearGradient>
+    <linearGradient id="career-blue" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#3d7bf0"/><stop offset="1" stop-color="#2f5be0"/></linearGradient>
+    <linearGradient id="career-line" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#3d7bf0"/><stop offset="1" stop-color="#1fb6f6"/></linearGradient>
+  </defs>
+  <rect width="640" height="430" rx="20" fill="url(#career-panel)"/>
+  <rect x="1" y="1" width="638" height="428" rx="19" fill="none" stroke="#5b9bff" stroke-opacity=".18"/>
+  <g font-family="Pretendard, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif">
+    <text x="36" y="40" fill="#5b9bff" font-size="12" letter-spacing="2.3">CAREER PROJECT BLUEPRINT</text>
+    <g fill="none" stroke="url(#career-line)" stroke-width="2"><path class="signal-line" d="M192 85H224M416 85H440"/><path d="M216 80L224 85L216 90M432 80L440 85L432 90"/></g>
+    <rect x="36" y="58" width="156" height="54" rx="10" fill="#0b1430" stroke="#5b9bff" stroke-opacity=".35"/>
+    <rect x="224" y="58" width="192" height="54" rx="10" fill="url(#career-blue)"/>
+    <rect x="440" y="58" width="164" height="54" rx="10" fill="#0b1430" stroke="#5b9bff" stroke-opacity=".35"/>
+    <g fill="#fff" font-size="22" font-weight="600" text-anchor="middle"><text x="114" y="93">직무 분석</text><text x="320" y="93">앱 구현</text><text x="522" y="93">포트폴리오</text></g>
+    <path class="signal-line" d="M320 112V143" fill="none" stroke="url(#career-line)" stroke-width="2"/>
+    <circle class="signal-node" cx="320" cy="139" r="4" fill="#1fb6f6"/>
+    <rect x="62" y="148" width="516" height="230" rx="16" fill="#0b1430" stroke="#5b9bff" stroke-opacity=".45"/>
+    <path d="M62 194H578" stroke="#5b9bff" stroke-opacity=".25"/>
+    <g fill="#5b9bff" fill-opacity=".6"><circle cx="83" cy="171" r="3"/><circle cx="95" cy="171" r="3"/><circle cx="107" cy="171" r="3"/></g>
+    <text x="126" y="177" fill="#fff" font-size="18" font-weight="550">MY WORKSPACE</text>
+    <text x="550" y="177" fill="#a8b4cf" font-size="16" text-anchor="end">구성 예시</text>
+    <path d="M233 194V378" stroke="#5b9bff" stroke-opacity=".2"/>
+    <rect x="78" y="211" width="138" height="40" rx="8" fill="#3d7bf0" fill-opacity=".18"/>
+    <g fill="#fff" font-size="20" font-weight="550"><text x="98" y="238">자료 정리</text><text x="98" y="286">업무 도구</text><text x="98" y="334">결과물 설명</text></g>
+    <rect x="253" y="211" width="305" height="40" rx="8" fill="#0f1b4c"/>
+    <rect x="253" y="259" width="305" height="40" rx="8" fill="#0f1b4c"/>
+    <rect x="253" y="307" width="305" height="40" rx="8" fill="#0f1b4c"/>
+    <g fill="#a8b4cf" font-size="18"><text x="270" y="237">흩어진 정보를 한곳에</text><text x="270" y="285">필요한 기능을 직접 구현</text><text x="270" y="333">문제와 해결 과정을 기록</text></g>
+    <g class="signal-node" fill="#1fb6f6"><circle cx="541" cy="231" r="3"/><circle cx="541" cy="279" r="3"/><circle cx="541" cy="327" r="3"/></g>
+    <text x="320" y="409" fill="#a8b4cf" font-size="18" text-anchor="middle">내가 만든 앱으로, 직무 이해와 실행 과정을 보여 주기</text>
+  </g>
+</svg>

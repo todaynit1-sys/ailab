@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="414" viewBox="0 0 360 414" role="img" aria-labelledby="mobile-career-title mobile-career-desc">
+<title id="mobile-career-title">취업용 앱과 포트폴리오 제작 흐름</title><desc id="mobile-career-desc">직무 분석, 앱 구현, 포트폴리오 순서로 진행합니다. 자료 정리와 업무 도구를 만들고, 문제를 해결한 과정을 설명하는 앱 구성 예시입니다.</desc>
+<rect width="360" height="414" rx="20" fill="#0b1430"/><rect x="1" y="1" width="358" height="412" rx="19" fill="none" stroke="#5b9bff" stroke-opacity=".25"/>
+<g font-family="'Apple SD Gothic Neo','Malgun Gothic',sans-serif">
+<text x="24" y="36" fill="#a8b4cf" font-size="12" letter-spacing="1">CAREER PROJECT · 구성 예시</text>
+<g font-size="20" font-weight="600" fill="#fff">
+<rect x="24" y="54" width="312" height="48" rx="10" fill="#0f1b4c"/><text x="44" y="85">01  직무 분석</text>
+<path d="M180 104v12m-5-5 5 5 5-5" fill="none" stroke="#5b9bff" stroke-width="2"/>
+<rect x="24" y="122" width="312" height="48" rx="10" fill="#2f5be0"/><text x="44" y="153">02  앱 구현</text>
+<path d="M180 172v12m-5-5 5 5 5-5" fill="none" stroke="#5b9bff" stroke-width="2"/>
+<rect x="24" y="190" width="312" height="48" rx="10" fill="#0f1b4c"/><text x="44" y="221">03  포트폴리오</text></g>
+<path d="M24 264h312" stroke="#5b9bff" stroke-opacity=".3"/>
+<g fill="#fff" font-size="18"><text x="28" y="300">자료 정리</text><text x="28" y="341">업무 도구</text><text x="28" y="382">결과물 설명</text></g>
+<g fill="#a8b4cf" font-size="16"><text x="140" y="300">정보를 한곳에</text><text x="140" y="341">필요한 기능 구현</text><text x="140" y="382">해결 과정 기록</text></g></g></svg>
