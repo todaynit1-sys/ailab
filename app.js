@@ -77,86 +77,171 @@ await navigator.clipboard.writeText(inquiry.value.trim());
 status.textContent=services[dialog.dataset.service].title+' 내용을 복사했습니다. 카카오톡에서 붙여넣어 보내주세요.';
 }catch{inquiry.focus();inquiry.select();status.textContent='자동 복사를 사용할 수 없습니다. 선택된 문의 내용을 직접 복사해주세요.';}
 });
-/* Motion has an explicit pause control and follows the system preference. */
-const motionPreference=window.matchMedia('(prefers-reduced-motion: reduce)');
-const finePointer=window.matchMedia('(hover: hover) and (pointer: fine)');
+
+/* One motion switch governs decorative effects and the original lab explainer. */
+const motionPreference=matchMedia('(prefers-reduced-motion: reduce)');
+const finePointer=matchMedia('(hover: hover) and (pointer: fine)');
+const root=document.documentElement;
 const motionToggle=document.querySelector('.motion-toggle');
 const motionLabel=document.querySelector('.motion-label');
-const scenes=[...document.querySelectorAll('.viz-scene')];
-let effectsPaused=false;
-let motionEnabled=false;
-const revealTargets=[...document.querySelectorAll('.education-panel,.curriculum article,.learning-flow li,.section-heading,.project,.case-study,.book,.contact')];
-// Short sibling delays establish order; these are visual choices, not numeric accessibility gates.
-document.querySelectorAll('.curriculum,.learning-flow,.book-grid').forEach(group=>{
-  [...group.children].forEach((item,index)=>item.style.setProperty('--reveal-delay',(group.classList.contains('book-grid')?index%4:Math.min(index,2))*50+'ms'));
-});
-revealTargets.forEach(element=>element.classList.add('reveal-item'));
+const hero=document.querySelector('.hero');
+const demo=document.querySelector('.lab-demo');
+const stage=document.querySelector('.demo-stage');
+const demoScreens=[...document.querySelectorAll('[data-scene]')];
+const stepButtons=[...document.querySelectorAll('[data-demo-step]')];
+const playButton=document.querySelector('.demo-play');
+const playLabel=document.querySelector('.demo-play-label');
+const demoTime=document.querySelector('.demo-time');
+const demoAnnouncement=document.querySelector('.demo-announcement');
+let effectsPaused=false,motionEnabled=false,heroVisible=true,demoVisible=false;
+let demoRunning=false,demoElapsed=0,currentStep=0;
+const duration=32000;
+const sceneNames=['문제 발견','기능 설계','앱 구현','과정 설명'];
+function selectScene(step,announce=false){
+  currentStep=step;
+  stage.dataset.step=String(step);
+  demoScreens.forEach((screen,index)=>{screen.hidden=index!==step;});
+  stepButtons.forEach((button,index)=>button.setAttribute('aria-pressed',String(index===step)));
+  if(announce)demoAnnouncement.textContent=(step+1)+'번째 장면: '+sceneNames[step];
+}
+function updateDemoControls(){
+  playButton.setAttribute('aria-pressed',String(demoRunning));
+  playButton.disabled=!motionEnabled;
+  playLabel.textContent=!motionEnabled?'장면을 선택해 살펴보세요':demoRunning?'재생 일시 정지':demoElapsed>=duration?'처음부터 다시 재생':'전체 과정 재생';
+  playButton.firstElementChild.textContent=demoRunning?'Ⅱ':'▷';
+  demoTime.textContent=demoElapsed>0?Math.floor(demoElapsed/1000)+' / 32초':'4개 장면 · 32초';
+}
+const revealTargets=[...document.querySelectorAll('.education-panel,.section-heading,.project,.lab-intro,.demo-console,.lab-outro,.book,.contact')];
+revealTargets.forEach((item,index)=>{item.classList.add('reveal-item');if(item.classList.contains('book'))item.style.setProperty('--reveal-delay',(index%4)*65+'ms');});
 const revealObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
   entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.remove('reveal-waiting');revealObserver.unobserve(entry.target);}});
 },{threshold:.08}):null;
-const sceneObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{entry.target.dataset.visible=String(entry.isIntersecting);
-    const figure=entry.target.closest('figure');if(figure)figure.dataset.inView=String(entry.isIntersecting);});
-},{threshold:.05}):null;
-scenes.forEach(scene=>{scene.dataset.visible=String(!sceneObserver);if(sceneObserver)sceneObserver.observe(scene);});
-function applyMotion(){
-  motionEnabled=!effectsPaused&&!motionPreference.matches;
-  document.documentElement.dataset.motion=motionEnabled?'on':'off';
-  motionToggle.hidden=motionPreference.matches;
-  motionToggle.setAttribute('aria-pressed',String(effectsPaused));
-  motionLabel.textContent=effectsPaused?'효과 다시 켜기':'효과 일시 정지';
-  if(!motionEnabled){
-    document.querySelector('.hero-copy').classList.remove('hero-enter');
-    revealTargets.forEach(element=>element.classList.remove('reveal-waiting'));
-    scenes.forEach(scene=>{scene.style.removeProperty('--tilt-x');scene.style.removeProperty('--tilt-y');});
+const viewObserver='IntersectionObserver' in window?new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    entry.target.dataset.inView=String(entry.isIntersecting);
+    if(entry.target===hero)heroVisible=entry.isIntersecting;
+    if(entry.target===demo)demoVisible=entry.isIntersecting;
+  });
+  scheduleAnimation();
+},{threshold:0}):null;
+document.querySelectorAll('.hero,.projects,.lab-demo').forEach(section=>{section.dataset.inView='true';if(viewObserver)viewObserver.observe(section);});
+const canvas=document.querySelector('.constellation');
+const context=canvas.getContext('2d');
+let particles=[],canvasWidth=0,canvasHeight=0,animationFrame=0,lastFrame=0,lastPaint=0;
+function resizeNetwork(){
+  if(!context)return;
+  const bounds=hero.getBoundingClientRect();
+  canvasWidth=bounds.width;canvasHeight=bounds.height;
+  const scale=Math.min(devicePixelRatio||1,1.5);
+  canvas.width=Math.round(canvasWidth*scale);canvas.height=Math.round(canvasHeight*scale);
+  context.setTransform(scale,0,0,scale,0,0);
+  const count=canvasWidth<760?28:65;
+  particles=Array.from({length:count},()=>({x:Math.random()*canvasWidth,y:Math.random()*canvasHeight,vx:(Math.random()-.5)*.14,vy:(Math.random()-.5)*.12,r:Math.random()*1.3+.4}));
+  drawNetwork(0);
+}
+function drawNetwork(delta){
+  if(!context)return;
+  context.clearRect(0,0,canvasWidth,canvasHeight);
+  for(const point of particles){
+    point.x=(point.x+point.vx*delta+canvasWidth)%canvasWidth;
+    point.y=(point.y+point.vy*delta+canvasHeight)%canvasHeight;
+    context.beginPath();context.arc(point.x,point.y,point.r,0,Math.PI*2);context.fillStyle='#8ebaff';context.fill();
+  }
+  for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){
+    const a=particles[i],b=particles[j],distance=Math.hypot(a.x-b.x,a.y-b.y);
+    if(distance<125){context.strokeStyle='rgba(110,166,255,'+((1-distance/125)*.18)+')';context.beginPath();context.moveTo(a.x,a.y);context.lineTo(b.x,b.y);context.stroke();}
   }
 }
-applyMotion();
-const heroCopy=document.querySelector('.hero-copy');
-if(motionEnabled){
-  const introChildren=[...heroCopy.children];
-  introChildren.forEach((element,index)=>element.style.setProperty('--intro-delay',Math.min(index,5)*50+'ms'));
-  heroCopy.classList.add('hero-enter');
-  heroCopy.addEventListener('animationend',event=>{if(event.target===introChildren.at(-1))heroCopy.classList.remove('hero-enter');});
+function animationTick(time){
+  animationFrame=0;
+  const delta=lastFrame?Math.min(time-lastFrame,50):0;lastFrame=time;
+  if(motionEnabled&&!document.hidden&&heroVisible&&time-lastPaint>32){
+    drawNetwork(delta/16.67*2);lastPaint=time;
+  }
+  if(motionEnabled&&!document.hidden&&demoRunning&&demoVisible){
+    demoElapsed=Math.min(duration,demoElapsed+delta);
+    const next=Math.min(3,Math.floor(demoElapsed/8000));
+    if(next!==currentStep)selectScene(next);
+    stage.parentElement.style.setProperty('--demo-progress',(demoElapsed/duration).toFixed(4));
+    const seconds=Math.floor(demoElapsed/1000);
+    if(demoTime.textContent!==seconds+' / 32초')demoTime.textContent=seconds+' / 32초';
+    if(demoElapsed>=duration){demoRunning=false;updateDemoControls();demoAnnouncement.textContent='전체 과정 재생이 끝났습니다. 장면을 선택해 다시 살펴볼 수 있습니다.';}
+  }
+  scheduleAnimation();
 }
-if(motionEnabled&&revealObserver){
-  revealTargets.forEach(element=>{
-    if(element.getBoundingClientRect().top>window.innerHeight){element.classList.add('reveal-waiting');revealObserver.observe(element);}
-  });
+function scheduleAnimation(){
+  const needed=motionEnabled&&!document.hidden&&(heroVisible||demoRunning&&demoVisible);
+  if(needed&&!animationFrame)animationFrame=requestAnimationFrame(animationTick);
+  else if(!needed){cancelAnimationFrame(animationFrame);animationFrame=0;lastFrame=0;}
 }
-document.addEventListener('focusin',event=>{
-  const target=event.target.closest('.reveal-waiting');
-  if(target){target.classList.remove('reveal-waiting');if(revealObserver)revealObserver.unobserve(target);}
-});
+function applyMotion(){
+  motionEnabled=!effectsPaused&&!motionPreference.matches;
+  root.dataset.motion=motionEnabled&&!document.hidden?'on':'off';
+  motionToggle.hidden=false;
+  motionToggle.disabled=motionPreference.matches;
+  motionToggle.setAttribute('aria-pressed',String(effectsPaused||motionPreference.matches));
+  motionLabel.textContent=motionPreference.matches?'움직임 줄이기 적용 중':effectsPaused?'효과 다시 켜기':'효과 일시 정지';
+  if(!motionEnabled){
+    demoRunning=false;
+    revealTargets.forEach(item=>item.classList.remove('reveal-waiting'));
+    document.querySelectorAll('.tilt-surface').forEach(item=>{item.style.removeProperty('--tilt-x');item.style.removeProperty('--tilt-y');});
+  }
+  updateDemoControls();scheduleAnimation();
+}
 motionToggle.addEventListener('click',()=>{effectsPaused=!effectsPaused;applyMotion();});
 motionPreference.addEventListener('change',applyMotion);
-scenes.forEach(scene=>{
-  let pendingFrame=0;
-  scene.addEventListener('pointermove',event=>{
+document.addEventListener('visibilitychange',applyMotion);
+playButton.addEventListener('click',()=>{
+  if(!motionEnabled)return;
+  if(demoElapsed>=duration){demoElapsed=0;selectScene(0);stage.parentElement.style.setProperty('--demo-progress','0');}
+  demoRunning=!demoRunning;
+  updateDemoControls();scheduleAnimation();
+});
+stepButtons.forEach(button=>button.addEventListener('click',()=>{
+  const step=Number(button.dataset.demoStep);
+  demoElapsed=step*8000;
+  selectScene(step,true);
+  stage.parentElement.style.setProperty('--demo-progress',(demoElapsed/duration).toFixed(4));
+  updateDemoControls();scheduleAnimation();
+}));
+resizeNetwork();applyMotion();
+if(motionEnabled&&revealObserver)revealTargets.forEach(item=>{
+  if(item.getBoundingClientRect().top>innerHeight){item.classList.add('reveal-waiting');revealObserver.observe(item);}
+});
+document.querySelectorAll('.hero-copy>*').forEach((item,index)=>item.style.setProperty('--intro-delay',(index*85)+'ms'));
+document.addEventListener('focusin',event=>{
+  const target=event.target.closest('.reveal-waiting');
+  if(target){target.classList.remove('reveal-waiting');revealObserver?.unobserve(target);}
+});
+document.querySelectorAll('.tilt-surface').forEach(surface=>{
+  let pending=0;
+  surface.addEventListener('pointermove',event=>{
     if(!motionEnabled||!finePointer.matches||event.pointerType==='touch')return;
-    const bounds=scene.getBoundingClientRect();
-    const x=Math.max(-1,Math.min(1,((event.clientX-bounds.left)/bounds.width-.5)*2));
-    const y=Math.max(-1,Math.min(1,((event.clientY-bounds.top)/bounds.height-.5)*2));
-    cancelAnimationFrame(pendingFrame);
-    pendingFrame=requestAnimationFrame(()=>{
+    const bounds=surface.getBoundingClientRect();
+    const x=Math.max(-1,Math.min(1,(event.clientX-bounds.left)/bounds.width*2-1));
+    const y=Math.max(-1,Math.min(1,(event.clientY-bounds.top)/bounds.height*2-1));
+    cancelAnimationFrame(pending);pending=requestAnimationFrame(()=>{
       if(!motionEnabled)return;
-      scene.style.setProperty('--tilt-x',(-y*3).toFixed(2)+'deg');
-      scene.style.setProperty('--tilt-y',(x*3).toFixed(2)+'deg');
+      surface.style.setProperty('--tilt-x',(-y*4).toFixed(2)+'deg');surface.style.setProperty('--tilt-y',(x*4).toFixed(2)+'deg');
     });
   },{passive:true});
-  scene.addEventListener('pointerleave',()=>{
-    cancelAnimationFrame(pendingFrame);
-    scene.style.removeProperty('--tilt-x');scene.style.removeProperty('--tilt-y');
-  });
+  surface.addEventListener('pointerleave',()=>{cancelAnimationFrame(pending);surface.style.removeProperty('--tilt-x');surface.style.removeProperty('--tilt-y');});
 });
 let progressFrame=0;
 function updateReadingProgress(){
-  const distance=document.documentElement.scrollHeight-window.innerHeight;
-  const progress=distance>0?Math.max(0,Math.min(1,window.scrollY/distance)):0;
-  document.documentElement.style.setProperty('--reading-progress',progress.toFixed(4));
+  const distance=root.scrollHeight-innerHeight;
+  root.style.setProperty('--reading-progress',String(distance>0?Math.max(0,Math.min(1,scrollY/distance)):0));
   progressFrame=0;
 }
 function scheduleProgress(){if(!progressFrame)progressFrame=requestAnimationFrame(updateReadingProgress);}
 window.addEventListener('scroll',scheduleProgress,{passive:true});
-window.addEventListener('resize',scheduleProgress,{passive:true});
+window.addEventListener('resize',()=>{resizeNetwork();scheduleProgress();},{passive:true});
 updateReadingProgress();
+if('IntersectionObserver' in window){
+  const sectionObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{if(entry.isIntersecting)document.querySelectorAll('.site-header nav a').forEach(link=>{
+      if(link.getAttribute('href')==='#'+entry.target.id)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');
+    });});
+  },{rootMargin:'-20% 0px -55% 0px',threshold:0});
+  document.querySelectorAll('main>section[id]').forEach(section=>sectionObserver.observe(section));
+}
