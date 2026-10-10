@@ -317,7 +317,7 @@ body{background:#0b1430}
 .signal-flow{fill:none;stroke:#d9e9ff;stroke-width:5;stroke-linecap:round;stroke-dasharray:10 180;opacity:0}
 .signal-core,.signal-halo{fill:none;stroke:#b3cbee;stroke-width:2;opacity:.18;transform-origin:627px 615px}
 .signal-halo{opacity:0}
-[data-motion=on] .activity-art{animation:activity-float 7s ease-in-out infinite;animation-play-state:paused}
+[data-motion=on] .activity-art{animation:none}
 [data-motion=on] .signal-flow{animation:activity-flow 8s linear infinite;animation-play-state:paused}
 [data-motion=on] .signal-career{animation-delay:-2s}
 [data-motion=on] .signal-web{animation-delay:-4s}
@@ -331,9 +331,26 @@ body{background:#0b1430}
 [data-motion=on] .education[data-in-view=true] .education-art img,
 [data-motion=on] .projects[data-in-view=true] .career-visual img{animation-play-state:running}
 [data-motion=off] .activity-art{transform:none}
-@keyframes activity-float{0%,100%{transform:translateY(3px)}50%{transform:translateY(-4px)}}
+
 @keyframes activity-flow{0%,18%{opacity:0;stroke-dashoffset:0}23%,43%{opacity:.85}50%,100%{opacity:0;stroke-dashoffset:-180}}
 @keyframes activity-halo{0%{opacity:.36;transform:scale(.92)}80%,100%{opacity:0;transform:scale(1.18)}}
 @keyframes diagram-breathe{0%,100%{transform:translateY(2px)}50%{transform:translateY(-3px)}}
 @media(max-width:760px){.activity-signals .signal-flow{stroke-width:6}}
 @media(prefers-reduced-motion:reduce){.activity-art{transform:none!important}.signal-flow,.signal-halo{opacity:0!important}}
+
+/* The lettering and central hub stay still; each illustration has its own rhythm. */
+.activity-illustration{display:block;width:100%;height:auto;filter:saturate(.58) brightness(.93)}
+.activity-tile{transform-box:view-box}
+.activity-tile-education{transform-origin:315px 245px}
+.activity-tile-career{transform-origin:950px 245px}
+.activity-tile-web{transform-origin:310px 850px}
+.activity-tile-video{transform-origin:940px 850px}
+[data-motion=on] .activity-tile{animation:activity-drift 7s ease-in-out infinite;animation-play-state:paused}
+[data-motion=on] .activity-tile-education{--drift-x:-6px;--drift-y:-10px;--drift-angle:-.4deg;animation-duration:7.8s;animation-delay:-1.2s}
+[data-motion=on] .activity-tile-career{--drift-x:8px;--drift-y:-12px;--drift-angle:.55deg;animation-duration:6.6s;animation-delay:-3.4s}
+[data-motion=on] .activity-tile-web{--drift-x:-8px;--drift-y:9px;--drift-angle:.35deg;animation-duration:8.6s;animation-delay:-5.2s}
+[data-motion=on] .activity-tile-video{--drift-x:7px;--drift-y:11px;--drift-angle:-.5deg;animation-duration:7.2s;animation-delay:-.5s}
+[data-motion=on] .hero[data-in-view=true] .activity-tile{animation-play-state:running}
+[data-motion=off] .activity-tile{transform:none}
+@keyframes activity-drift{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(var(--drift-x),var(--drift-y)) rotate(var(--drift-angle))}}
+@media(prefers-reduced-motion:reduce){.activity-tile{transform:none!important}}
