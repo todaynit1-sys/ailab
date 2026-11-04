@@ -8,6 +8,8 @@ http.createServer((req,res) => {
   try { name = decodeURIComponent(new URL(req.url,'http://localhost').pathname); } catch { res.writeHead(400); return res.end(); }
   if (name === '/') name = '/index.html';
   const file = path.resolve(root, '.' + name);
-  if (!file.startsWith(root + path.sep) || !Object.hasOwn(types,path.extname(file))) {res.writeHead(404); return res.end('Not found');}
-  fs.readFile(file,(error,body) => {if(error){res.writeHead(404); return res.end('Not found');}res.writeHead(200,{'Content-Type':types[path.extname(file)],'Cache-Control':'no-cache'}); res.end(body);});
+  const isMaterial = path.dirname(file) === path.join(root, 'assets', 'materials') && path.extname(file) === '.pdf';
+  const contentType = isMaterial ? 'application/pdf' : types[path.extname(file)];
+  if (!file.startsWith(root + path.sep) || !contentType) {res.writeHead(404); return res.end('Not found');}
+  fs.readFile(file,(error,body) => {if(error){res.writeHead(404); return res.end('Not found');}res.writeHead(200,{'Content-Type':contentType,'Cache-Control':'no-cache'}); res.end(body);});
 }).listen(4173,'127.0.0.1',() => console.log('AI전략연구소 미리보기: http://127.0.0.1:4173'));

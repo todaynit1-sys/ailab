@@ -338,6 +338,12 @@ body{background:#0b1430}
 @media(max-width:760px){.activity-signals .signal-flow{stroke-width:6}}
 @media(prefers-reduced-motion:reduce){.activity-art{transform:none!important}.signal-flow,.signal-halo{opacity:0!important}}
 
+.legal-materials{margin-top:24px;scroll-margin-top:120px}
+.legal-materials h3{font-size:20px}
+.legal-materials p,.legal-materials li>span{color:var(--color-muted);font-size:14px}
+.legal-materials p{margin:6px 0 12px}
+.legal-materials li{display:flex;align-items:baseline;flex-wrap:wrap;column-gap:16px;padding:8px 0;border-top:1px solid var(--color-line,#ffffff26)}
+.legal-materials a{min-height:44px}
 /* The lettering and central hub stay still; each illustration has its own rhythm. */
 .activity-illustration{display:block;width:100%;height:auto;filter:saturate(.58) brightness(.93)}
 .activity-tile{transform-box:view-box}
